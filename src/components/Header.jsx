@@ -171,7 +171,7 @@ export default function Header() {
         color="inherit"
         aria-label="open drawer"
         sx={{ mr: 2 }}
-        onClick={() => (window.location.href = "/")}
+        onClick={() => (window.location.href = "/calendar")}
       >
         <Box
           component={"img"}
