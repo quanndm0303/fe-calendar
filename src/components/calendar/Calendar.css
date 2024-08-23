@@ -12,12 +12,15 @@
 }
 
 .mini-calendar {
-  width: 223px;
-  margin-right: 33px;
+  width: 220px; /* Điều chỉnh width nếu cần */
+  margin-right: 20px;
   padding: 10px;
   background-color: #f0f0f0;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 100%; /* Thêm dòng này */
+  display: flex; /* Thêm dòng này */
+  flex-direction: column; /* Thêm dòng này */
 }
 
 .mini-calendar h4 {
@@ -29,6 +32,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
+  flex-grow: 1; /* Thêm dòng này */
 }
 
 .mini-day {
