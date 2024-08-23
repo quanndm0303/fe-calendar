@@ -1,0 +1,232 @@
+.calendar {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.calendar-container {
+  display: flex;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mini-calendar {
+  width: 223px;
+  margin-right: 33px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.mini-calendar h4 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.mini-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.mini-day {
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.mini-day:hover {
+  background-color: #e0e0e0;
+}
+
+.mini-day.current {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+}
+
+.calendar {
+  flex-grow: 1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.icon {
+  cursor: pointer;
+  padding: 5px 10px;
+  user-select: none;
+}
+
+.view-options {
+  position: relative;
+}
+
+.view-options > button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+
+
+.days {
+  display: flex;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.col {
+  flex-grow: 1;
+  padding: 5px;
+  text-align: center;
+}
+
+.body {
+  background-color: #fff;
+}
+
+.cell {
+  min-height: 100px;
+  padding: 5px;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.cell:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #e6f2ff;
+}
+
+.disabled {
+  color: #ccc;
+}
+
+.event {
+  padding: 2px 5px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Styles for day view */
+.day-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.hour-slot {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  min-height: 60px;
+}
+
+.hour-label {
+  width: 60px;
+  text-align: right;
+  padding-right: 10px;
+  border-right: 1px solid #eee;
+}
+
+.hour-events {
+  flex-grow: 1;
+  padding: 5px;
+}
+
+/* Styles for week view */
+.week-view {
+  display: flex;
+}
+
+.day-column {
+  flex-grow: 1;
+  border-right: 1px solid #eee;
+}
+
+.day-header {
+  text-align: center;
+  padding: 5px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+/* Styles for year view */
+.year-view {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.month-cell {
+  border: 1px solid #eee;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.month-name {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.mini-month {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.mini-month .mini-day {
+  font-size: 10px;
+  padding: 2px;
+}
+
+.view-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.view-options button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.view-options button:hover {
+  background-color: #e0e0e0;
+}
+
+.view-options button.active {
+  background-color: #007bff;
+  color: white;
+}

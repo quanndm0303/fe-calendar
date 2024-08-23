@@ -34,7 +34,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate("/");
+      navigate("/calendar");
     }
   }, [navigate]);
 
@@ -49,7 +49,7 @@ export default function Login() {
     try {
       const response = await logIn(username, password);
       console.log("Response body:", response.data);
-      navigate("/");
+      navigate("/calendar");
     } catch (error) {
       const errorResponse = error.response.data;
       setSnackBarMessage(errorResponse.message);
