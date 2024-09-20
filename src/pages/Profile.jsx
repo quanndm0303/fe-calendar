@@ -76,14 +76,14 @@ export default function Profile() {
                   fontWeight: 600,
                 }}
               >
-                User Id
+                Profile ID
               </Typography>
               <Typography
                 sx={{
                   fontSize: 14,
                 }}
               >
-                {userDetails.id}
+                {userDetails.profileID}
               </Typography>
             </Box>
             <Box
