@@ -3,49 +3,54 @@ import { useNavigate } from "react-router-dom";
 import { Box, Card, CircularProgress, Typography } from "@mui/material";
 import { isAuthenticated } from "../services/authenticationService";
 import Scene from "./Scene";
-import Post from "../components/Post";
-import { getMyPosts } from "../services/postService";
+import Event from "../components/Event";
+import apiService from "../services/apiService";
 import { logOut } from "../services/authenticationService";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
+  const [events, setEvents] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(false);
   const observer = useRef();
-  const lastPostElementRef = useRef();
+  const lastEventElementRef = useRef();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate("/login");
-    } else {
-      loadPosts(page);
-    }
-  }, [navigate, page]);
+useEffect(() => {
+  if (!isAuthenticated()) {
+    navigate("/login");
+  } else {
+    loadEvents();
+  }
+}, [navigate]);
 
-  const loadPosts = (page) => {
-    console.log(`loading posts for page ${page}`);
-    setLoading(true);
-    getMyPosts(page)
-      .then((response) => {
-        setTotalPages(response.data.result.totalPages);
-        setPosts((prevPosts) => [...prevPosts, ...response.data.result.data]);
-        setHasMore(response.data.result.data.length > 0);
-        console.log("loaded posts:", response.data.result);
-      })
-      .catch((error) => {
-        if (error.response.status === 401) {
-          logOut();
-          navigate("/login");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+
+const loadEvents = () => {
+  console.log(`loading events`);
+  setLoading(true);
+  apiService
+    .getMyEvents() 
+    .then((response) => {
+      setEvents(response.result.data); 
+      setTotalPages(response.result.totalPages); 
+      setHasMore(response.result.data.length > 0);
+      console.log("loaded events:", response.result);
+    })
+    .catch((error) => {
+      console.error("Error fetching events:", error);
+
+      if (error.response && error.response.status === 401) {
+        logOut();
+        navigate("/login");
+      }
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+};
+
 
   useEffect(() => {
     if (!hasMore) return;
@@ -58,8 +63,8 @@ export default function Home() {
         }
       }
     });
-    if (lastPostElementRef.current) {
-      observer.current.observe(lastPostElementRef.current);
+    if (lastEventElementRef.current) {
+      observer.current.observe(lastEventElementRef.current);
     }
 
     setHasMore(false);
@@ -91,24 +96,15 @@ export default function Home() {
               mb: "10px",
             }}
           >
-            Your posts,
+            Your Events,
           </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              width: "100%", // Ensure content takes full width
-            }}
-          ></Box>
-          {posts.map((post, index) => {
-            if (posts.length === index + 1) {
+          {events.map((event, index) => {
+            if (events.length === index + 1) {
               return (
-                <Post ref={lastPostElementRef} key={post.id} post={post} />
+                <Event ref={lastEventElementRef} key={event.id} event={event} />
               );
             } else {
-              return <Post key={post.id} post={post} />;
+              return <Event key={event.id} event={event} />;
             }
           })}
           {loading && (
