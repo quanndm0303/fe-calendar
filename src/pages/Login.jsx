@@ -26,6 +26,11 @@ export default function Login() {
     setSnackBarOpen(false);
   };
 
+
+  const handleCreateAccount = () => {
+    navigate("/signup");
+  };
+
   const handleClick = () => {
     alert(
       "Please refer to Oauth2 series for this implemetation guidelines. https://www.youtube.com/playlist?list=PL2xsxmVse9IbweCh6QKqZhousfEWabSeq"
@@ -152,10 +157,11 @@ export default function Login() {
                 Continue with Google
               </Button>
               <Button
-                type="submit"
+                type="button"
                 variant="contained"
                 color="success"
                 size="large"
+                onClick={handleCreateAccount}
               >
                 Create an account
               </Button>

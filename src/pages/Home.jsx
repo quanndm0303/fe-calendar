@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Box, Card, CircularProgress, Typography } from "@mui/material";
 import { isAuthenticated } from "../services/authenticationService";
 import Scene from "./Scene";
-import Event from "../components/Event"; 
-import apiService from "../services/apiService"; 
+import Event from "../components/Event";
+import apiService from "../services/apiService";
 import { logOut } from "../services/authenticationService";
 
 export default function Home() {
@@ -18,37 +18,39 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate("/login");
-    } else {
-      loadEvents(page);
-    }
-  }, [navigate, page]);
+useEffect(() => {
+  if (!isAuthenticated()) {
+    navigate("/login");
+  } else {
+    loadEvents();
+  }
+}, [navigate]);
 
-  const loadEvents = (page) => {
-    console.log(`loading events for page ${page}`);
-    setLoading(true);
-    apiService
-      .getMyEvents(page) 
-      .then((response) => {
-        setTotalPages(response.result.totalPages);
-        setEvents((prevEvents) => [...prevEvents, ...response.result.data]);
-        setHasMore(response.result.data.length > 0);
-        console.log("loaded events:", response.result);
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-        
-        if (error.response && error.response.status === 401) {
-          logOut();
-          navigate("/login");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+
+const loadEvents = () => {
+  console.log(`loading events`);
+  setLoading(true);
+  apiService
+    .getMyEvents() 
+    .then((response) => {
+      setEvents(response.result.data); 
+      setTotalPages(response.result.totalPages); 
+      setHasMore(response.result.data.length > 0);
+      console.log("loaded events:", response.result);
+    })
+    .catch((error) => {
+      console.error("Error fetching events:", error);
+
+      if (error.response && error.response.status === 401) {
+        logOut();
+        navigate("/login");
+      }
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+};
+
 
   useEffect(() => {
     if (!hasMore) return;

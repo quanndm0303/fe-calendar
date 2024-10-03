@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getMyPosts } from "./postService";
 
 const API_BASE_URL = "http://localhost:8083/event";
 
@@ -33,15 +34,28 @@ const apiService = {
     }
   },
 
-  getMyEvents: async (page = 1, size = 10) => {
+  // getMyEvents: async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const response = await axios.get(`${API_BASE_URL}/my-events`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error fetching my events:", error);
+  //     throw error;
+  //   }
+  // },
+
+  getMyEvents : async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/my-events`, {
-        params: { page, size },
-      });
+      const response = await getMyPosts();
       return response.data;
     } catch (error) {
       console.error("Error fetching my events:", error);
-      throw error;
+          throw error;
     }
   },
 };
