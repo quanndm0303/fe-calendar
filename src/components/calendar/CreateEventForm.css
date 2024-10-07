@@ -1,0 +1,25 @@
+.create-event-modal {
+  z-index: 1060 !important;
+}
+
+.create-event-modal .modal-dialog {
+  margin-top: 60px; 
+}
+
+.create-event-modal .modal-content {
+  max-height: calc(100vh - 120px); 
+  overflow-y: auto;
+}
+
+.create-event-modal .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.create-event-modal .modal-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.create-event-modal .modal-content::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}

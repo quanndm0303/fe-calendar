@@ -25,16 +25,21 @@ import { fetchEvents } from "../../services/api";
 import { Dropdown } from "bootstrap";
 import { DropdownButton } from "react-bootstrap";
 import Header from "../Header";
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material";
+import CreateEventForm from "./CreateEventForm"; 
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState([]);
-  const [view, setView] = useState("month"); // 'month', 'week', 'day', 'year'
+  const [view, setView] = useState("month");
  const [mobileOpen, setMobileOpen] = React.useState(false);
  const [isClosing, setIsClosing] = React.useState(false);
+ const [showEventModal, setShowEventModal] = useState(false);
+
+
+ 
 const handleDrawerToggle = () => {
   if (!isClosing) {
     setMobileOpen(!mobileOpen);
@@ -52,6 +57,27 @@ const handleDrawerToggle = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 const theme = useTheme();
+
+const handleCreateEvent = () => {
+  setShowEventModal(true);
+};
+
+const handleCloseModal = () => {
+  setShowEventModal(false);
+};
+
+const handleEventCreated = async () => {
+  const fetchedEvents = await fetchEvents(currentDate);
+  setEvents(fetchedEvents);
+};
+
+useEffect(() => {
+  const getEvents = async () => {
+    const fetchedEvents = await fetchEvents(currentDate);
+    setEvents(fetchedEvents);
+  };
+  getEvents();
+}, [currentDate]);
 
   const onDateClick = (day) => {
     setCurrentDate(day);
@@ -377,6 +403,13 @@ const theme = useTheme();
               <MenuIcon />
             </IconButton>
             <Header />
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleCreateEvent}
+            >
+              Create Event
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
@@ -389,6 +422,12 @@ const theme = useTheme();
           </div>
         </div>
       </div>
+
+      <CreateEventForm
+        show={showEventModal}
+        handleClose={handleCloseModal}
+        onEventCreated={handleEventCreated}
+      />
     </>
   );
 };

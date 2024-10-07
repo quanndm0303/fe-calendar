@@ -7,4 +7,5 @@ export const API = {
   MY_INFO: "/profile/users/my-profile",
   MY_POST: "/event/my-events",
   SIGN_UP: "/identity/users/registration",
+  POST: "/event/add-event",
 };
